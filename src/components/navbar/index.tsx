@@ -23,7 +23,7 @@ const Navbar = () => {
   const user = session?.user;
   const navItems: NavItem[] = [
     { name: "Home", path: "/", icon: <FaHome /> },
-    { name: "All Tiles", path: "/all-tiles", icon: <CiClock1 /> },
+    { name: "All Facilities", path: "/all-facilities", icon: <CiClock1 /> },
   ];
 
   if (user) {
