@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 const TrustedCard = ({trustedImage}:{trustedImage: TGalleryImage}) => {
     return (
-         <Card className=" w-[320px] shrink-0 p-3 gap-2 group cursor-pointer">
+         <Card className=" w-[150px] shrink-0 px-12 py-3 gap-2 group cursor-pointer shadow-lg rounded-lg ">
                 <div className="relative w-full aspect-square">
                   <Image
                     fill
