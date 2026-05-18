@@ -24,6 +24,11 @@ const nextConfig: NextConfig = {
         hostname: "demo.curlythemes.com",
         pathname: "**",
       },
+      {
+        protocol: "https",
+        hostname: "pitchbooking.com",
+        pathname: "**",
+      },
     ],
   },
 };

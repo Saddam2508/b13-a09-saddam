@@ -27,3 +27,16 @@ export const fetchLeisureData = async () => {
  
   return leisure;
 };
+
+export const fetchTrustedData = async () => {
+  const baseUrl = process.env.BETTER_AUTH_URL;
+  if (!baseUrl) throw new Error("Missing APP_URL");
+
+  const res = await fetch(`${baseUrl}/trusted.json`);
+
+  if (!res.ok) return null;
+
+  const trusted: TLeisure[] = await res.json();
+ 
+  return trusted;
+};

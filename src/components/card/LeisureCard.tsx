@@ -6,7 +6,7 @@ import Image from "next/image";
 const LeisureCard = ({ leisure }: { leisure: TLeisure }) => {
   return (
     <div>
-      <Card className=" gap-2 group cursor-pointer">
+      <Card className=" w-[320px] shrink-0 p-3 gap-2 group cursor-pointer">
         <div className="relative w-full aspect-square">
           <Image
             fill
