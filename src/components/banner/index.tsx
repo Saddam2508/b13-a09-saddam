@@ -50,15 +50,23 @@ const Banner = () => {
               height={800}
               className="w-full"
             />
-            <h2 className="absolute left-1/2 top-1/3 -translate-x-1/2 -translate-y-1/2 text-sm sm:text-4xl font-bold text-white w-full text-center">
-              Discover Your Perfect Aesthetic
+           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 space-y-12">
+             <h2 className=" text-sm sm:text-6xl font-bold text-white w-full">
+              Book Your Perfect Sports Arena Anytime, Anywhere
             </h2>
+
+            <p className="text-2xl">
+              Discover top-rated football turfs, badminton courts, tennis
+              arenas, and swimming facilities near you. Reserve your preferred
+              slot in seconds with SportNest.
+            </p>
             <Link
               href={"/all-tiles"}
-              className="btn absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+              className="px-7 py-6 bg-amber-500 rounded-2xl text-white font-bold text-2xl"
             >
-              Browse Now
+              Explore Facilities
             </Link>
+           </div>
           </div>
         </SwiperSlide>
       ))}

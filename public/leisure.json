@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "title": "Swimming Sessions",
+    "image": "https://demo.curlythemes.com/html/leisure/images/sail.jpg",
+    "description": "Enjoy refreshing swimming sessions in our modern pool with professional safety and coaching support."
+  },
+  {
+    "id": 2,
+    "title": "Indoor Badminton",
+    "image": "https://demo.curlythemes.com/html/leisure/images/food.jpg",
+    "description": "Play competitive and recreational badminton matches in our premium indoor courts."
+  },
+  {
+    "id": 3,
+    "title": "Football Turf Matches",
+    "image": "https://demo.curlythemes.com/html/leisure/images/room.jpg",
+    "description": "Experience exciting football matches on high-quality artificial grass turf with floodlights."
+  },
+  {
+    "id": 4,
+    "title": "Fitness & Gym",
+    "image": "https://demo.curlythemes.com/html/leisure/images/fitness.jpg",
+    "description": "Stay active and healthy with advanced gym equipment, cardio zones, and fitness training."
+  },
+  {
+    "id": 5,
+    "title": "Tennis Practice",
+    "image": "https://demo.curlythemes.com/html/leisure/images/spa.jpg",
+    "description": "Improve your tennis skills with professional-grade courts and coaching facilities."
+  },
+  {
+    "id": 6,
+    "title": "Basketball Training",
+    "image": "https://demo.curlythemes.com/html/leisure/images/pool.jpg",
+    "description": "Join energetic basketball games and practice sessions in our indoor sports arena."
+  }
+]

@@ -1,0 +1,86 @@
+[
+  {
+    "facilityName": "SkyDome Football Turf",
+    "facilityType": "Football Turf",
+    "image": "https://i.ibb.co/8DZL9YQ/football-turf.jpg",
+    "location": "Dhanmondi, Dhaka",
+    "pricePerHour": 3500,
+    "capacity": 14,
+    "availableTimeSlots": [
+      "06:00 AM - 08:00 AM",
+      "10:00 AM - 12:00 PM",
+      "06:00 PM - 08:00 PM"
+    ],
+    "description": "Premium artificial grass football turf with floodlights, gallery seating, and changing rooms."
+  },
+  {
+    "facilityName": "Ace Badminton Arena",
+    "facilityType": "Badminton Court",
+    "image": "https://i.ibb.co/x6n0J8J/badminton-court.jpg",
+    "location": "Uttara, Dhaka",
+    "pricePerHour": 1800,
+    "capacity": 6,
+    "availableTimeSlots": [
+      "07:00 AM - 09:00 AM",
+      "01:00 PM - 03:00 PM",
+      "07:00 PM - 09:00 PM"
+    ],
+    "description": "Indoor air-conditioned badminton courts with professional flooring and LED lighting."
+  },
+  {
+    "facilityName": "BlueWave Swimming Center",
+    "facilityType": "Swimming Pool",
+    "image": "https://i.ibb.co/Yj6m5Q4/swimming-pool.jpg",
+    "location": "Banani, Dhaka",
+    "pricePerHour": 2500,
+    "capacity": 20,
+    "availableTimeSlots": [
+      "08:00 AM - 10:00 AM",
+      "12:00 PM - 02:00 PM",
+      "05:00 PM - 07:00 PM"
+    ],
+    "description": "Olympic-standard swimming lanes with clean water filtration and coaching support."
+  },
+  {
+    "facilityName": "Grand Slam Tennis Club",
+    "facilityType": "Tennis Court",
+    "image": "https://i.ibb.co/q0f2Y5R/tennis-court.jpg",
+    "location": "Gulshan, Dhaka",
+    "pricePerHour": 3000,
+    "capacity": 4,
+    "availableTimeSlots": [
+      "06:00 AM - 08:00 AM",
+      "03:00 PM - 05:00 PM",
+      "07:00 PM - 09:00 PM"
+    ],
+    "description": "Outdoor hard tennis courts with professional nets, lighting, and spectator seating."
+  },
+  {
+    "facilityName": "PowerPlay Cricket Ground",
+    "facilityType": "Cricket Ground",
+    "image": "https://i.ibb.co/9p4Q0VQ/cricket-ground.jpg",
+    "location": "Mirpur, Dhaka",
+    "pricePerHour": 5000,
+    "capacity": 22,
+    "availableTimeSlots": [
+      "07:00 AM - 10:00 AM",
+      "11:00 AM - 02:00 PM",
+      "03:00 PM - 06:00 PM"
+    ],
+    "description": "Large cricket field with practice nets, pavilion area, and high-quality pitch."
+  },
+  {
+    "facilityName": "Elite Basketball Court",
+    "facilityType": "Basketball Court",
+    "image": "https://i.ibb.co/4W2DGKm/basketball-court.jpg",
+    "location": "Mohammadpur, Dhaka",
+    "pricePerHour": 2200,
+    "capacity": 10,
+    "availableTimeSlots": [
+      "08:00 AM - 10:00 AM",
+      "02:00 PM - 04:00 PM",
+      "06:00 PM - 08:00 PM"
+    ],
+    "description": "Indoor wooden-floor basketball arena suitable for practice sessions and tournaments."
+  }
+]
