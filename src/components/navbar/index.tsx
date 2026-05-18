@@ -21,12 +21,13 @@ const Navbar = () => {
 
   const { data: session } = authClient.useSession();
   const user = session?.user;
+
   const navItems: NavItem[] = [
     { name: "Home", path: "/", icon: <FaHome /> },
     { name: "All Facilities", path: "/all-facilities", icon: <CiClock1 /> },
   ];
 
-  if (user) {
+  if (true) {
     navItems.push({
       name: "My Profile",
       path: "/profile",
@@ -98,13 +99,13 @@ const Navbar = () => {
             <ul className="menu menu-horizontal px-1">{link}</ul>
           </div>
           <div className="navbar-end">
-            {user ? (
+            {true ? (
               <div onClick={() => setToggle(!toggle)} className="relative">
                 <div className="avatar avatar-online">
                   <div className="w-24 rounded-full">
                     <Image
                       src={
-                        user.image ||
+                        // user.image ||
                         "https://img.daisyui.com/images/profile/demo/gordon@192.webp"
                       }
                       alt="profile"
@@ -115,13 +116,31 @@ const Navbar = () => {
                   </div>
                 </div>
                 {toggle ? (
-                  <Link
-                    href={"/login"}
-                    onClick={async () => await authClient.signOut()}
-                    className="btn absolute -bottom-10 -left-15 bg-red-500 text-white"
+                  <ul
+                    tabIndex={-1}
+                    className="menu dropdown-content bg-base-200 rounded-box z-1 mt-4 w-50 p-2 shadow-sm absolute"
                   >
-                    Logout
-                  </Link>
+                    <li>
+                      <Link href={"/my-booking"}>My Bookings</Link>
+                    </li>
+                    <li>
+                      <Link href={"/add-facility"}>Add Facility</Link>
+                    </li>
+                    <li>
+                      <Link href={"/manage-facility"}>
+                        Manage My Facilities
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        href={"/login"}
+                        onClick={async () => await authClient.signOut()}
+                        className="bg-red-500 text-white"
+                      >
+                        Logout
+                      </Link>
+                    </li>
+                  </ul>
                 ) : (
                   ""
                 )}
