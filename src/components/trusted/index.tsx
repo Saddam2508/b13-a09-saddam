@@ -14,16 +14,16 @@ const Trusted = async () => {
       <h2 className="text-center text-6xl font-bold py-5 mb-10">
         Trusted by organisations across the world
       </h2>
-      <Marquee speed={90}>
+      <Marquee speed={60}>
         <div className="flex gap-6">
-          {allTrustedImage.map((trustedImg) => (
+          {allTrustedImage.slice(0, 9).map((trustedImg) => (
             <TrustedCard key={trustedImg.id} trustedImage={trustedImg} />
           ))}
         </div>
       </Marquee>
-      <Marquee speed={90} direction="right" gradient={false} className=" mt-12">
+      <Marquee speed={60} direction="right" gradient={false} className=" mt-12">
         <div className="flex gap-6">
-          {allTrustedImage.map((trustedImg) => (
+          {allTrustedImage.slice(9, 18).map((trustedImg) => (
             <TrustedCard key={trustedImg.id} trustedImage={trustedImg} />
           ))}
         </div>
