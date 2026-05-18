@@ -24,7 +24,7 @@ const Navbar = () => {
 
   const navItems: NavItem[] = [
     { name: "Home", path: "/", icon: <FaHome /> },
-    { name: "All Facilities", path: "/all-facilities", icon: <CiClock1 /> },
+    { name: "All Facilities", path: "/facilities", icon: <CiClock1 /> },
   ];
 
   if (true) {
@@ -121,13 +121,13 @@ const Navbar = () => {
                     className="menu dropdown-content bg-base-200 rounded-box z-1 mt-4 w-50 p-2 shadow-sm absolute"
                   >
                     <li>
-                      <Link href={"/my-booking"}>My Bookings</Link>
+                      <Link href={"/booking"}>My Bookings</Link>
                     </li>
                     <li>
-                      <Link href={"/add-facility"}>Add Facility</Link>
+                      <Link href={"/facilities/add"}>Add Facility</Link>
                     </li>
                     <li>
-                      <Link href={"/manage-facility"}>
+                      <Link href={"/facilities/manage"}>
                         Manage My Facilities
                       </Link>
                     </li>
