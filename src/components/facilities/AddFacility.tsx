@@ -1,4 +1,5 @@
 "use client";
+import { createFacilitiesdData, fetchFacilitiesData, getfacilitiesdData } from "@/helper/fetchData";
 import { TFacility } from "@/types/facilityType";
 import { Envelope } from "@gravity-ui/icons";
 import {
@@ -12,7 +13,7 @@ import {
 } from "@heroui/react";
 import { Table } from "@heroui/react";
 import Image from "next/image";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 
 const AddFacility = () => {
   const facilityData: TFacility = {
@@ -29,7 +30,12 @@ const AddFacility = () => {
 
   const [facilities, setFacilities] = useState<TFacility[]>([facilityData]);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+useEffect(()=>{
+  getfacilitiesdData()
+},[])
+
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const allFacilityData = Object.fromEntries(formData.entries());
@@ -38,6 +44,8 @@ const AddFacility = () => {
       availableTimeSlots: `${allFacilityData.startTime} - ${allFacilityData.endTime}`,
     };
     setFacilities((prev) => [...prev, facility as TFacility]);
+    await createFacilitiesdData(facility as TFacility)
+    
   };
 
   return (
