@@ -22,7 +22,6 @@ const AddFacility = () => {
   useEffect(() => {
     const fetchData = async () => {
       const result = await getfacilitiesdData();
-      console.log(result.data);
       if (result?.data) {
         setFacilities(result.data);
       }

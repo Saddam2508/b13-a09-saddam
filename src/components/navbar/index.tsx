@@ -27,7 +27,7 @@ const Navbar = () => {
     { name: "All Facilities", path: "/facilities", icon: <CiClock1 /> },
   ];
 
-  if (true) {
+  if (user) {
     navItems.push({
       name: "My Profile",
       path: "/profile",
@@ -99,14 +99,12 @@ const Navbar = () => {
             <ul className="menu menu-horizontal px-1">{link}</ul>
           </div>
           <div className="navbar-end">
-            {true ? (
+            {user ? (
               <div onClick={() => setToggle(!toggle)} className="relative">
                 <div className="avatar avatar-online">
                   <div className="w-24 rounded-full">
                     <Image
-                      src={
-                        // user.image ||
-                        "https://img.daisyui.com/images/profile/demo/gordon@192.webp"
+                      src={ user?.image || "https://img.daisyui.com/images/profile/demo/gordon@192.webp"
                       }
                       alt="profile"
                       width={20}
