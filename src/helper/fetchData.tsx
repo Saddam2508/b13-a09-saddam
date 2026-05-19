@@ -69,7 +69,9 @@ export const getfacilitiesdData = async (): Promise<TFacilityResponse> => {
   if (!baseUrl) throw new Error("Missing APP_URL");
 
   const res = await fetch(`${baseUrl}/api/facilities`);
-
+  if (!res.ok) {
+    throw new Error("Failed to get facility");
+  }
   return res.json();
 };
 
@@ -82,6 +84,20 @@ export const updatefacilitiesdData =  async (id: string, facility: Partial<TFaci
     headers: { "content-type": "application/json" },
     body: JSON.stringify(facility),
   });
+  if (!res.ok) {
+    throw new Error("Failed to Update facility");
+  }
+  return res.json();
+};
 
+export const deletefacilitiesdData =  async (id: string) => {
+  const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL;
+  if (!baseUrl) throw new Error("Missing APP_URL");
+  const res = await fetch(`${baseUrl}/api/facilities/${id}`, {
+    method: "DELETE",
+  });
+    if (!res.ok) {
+    throw new Error("Failed to delete facility");
+  }
   return res.json();
 };

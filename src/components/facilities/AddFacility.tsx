@@ -1,21 +1,13 @@
 "use client";
 import {
   createFacilitiesdData,
-  fetchFacilitiesData,
+  deletefacilitiesdData,
   getfacilitiesdData,
   updatefacilitiesdData,
 } from "@/helper/fetchData";
 import { TFacility } from "@/types/facilityType";
 import { Envelope } from "@gravity-ui/icons";
-import {
-  Button,
-  Input,
-  Label,
-  Link,
-  Modal,
-  Surface,
-  TextField,
-} from "@heroui/react";
+import { Button, Input, Label, Modal, Surface, TextField } from "@heroui/react";
 import { Table } from "@heroui/react";
 import Image from "next/image";
 import { FormEvent, useEffect, useState } from "react";
@@ -47,16 +39,24 @@ const AddFacility = () => {
       ...allFacilityData,
       availableTimeSlots: `${allFacilityData.startTime} - ${allFacilityData.endTime}`,
     };
-  
+
     if (selectedFacility?._id) {
       await updatefacilitiesdData(selectedFacility._id, facility);
-      setSelectedFacility(null)
+      setSelectedFacility(null);
     } else {
       await createFacilitiesdData(facility as TFacility);
     }
-    const result = await getfacilitiesdData()
-    if(result.data){
-      setFacilities(result.data)
+    const result = await getfacilitiesdData();
+    if (result.data) {
+      setFacilities(result.data);
+    }
+  };
+
+  const handleDelete = async (id: string) => {
+    await deletefacilitiesdData(id);
+    const result = await getfacilitiesdData();
+    if (result.data) {
+      setFacilities(result.data);
     }
   };
 
@@ -222,8 +222,8 @@ const AddFacility = () => {
               </Table.Header>
               <Table.Body>
                 {facilities.length > 0 ? (
-                  facilities.map((faci, i) => (
-                    <Table.Row key={i}>
+                  facilities.map((faci) => (
+                    <Table.Row key={faci._id}>
                       <Table.Cell> {faci.facilityName} </Table.Cell>
                       <Table.Cell> {faci.facilityType} </Table.Cell>
                       <Table.Cell>
@@ -255,7 +255,9 @@ const AddFacility = () => {
                         </Button>
                       </Table.Cell>
                       <Table.Cell>
-                        <Link href="/">Delete</Link>
+                        <Button onClick={() => handleDelete(faci._id)}>
+                          Delete
+                        </Button>
                       </Table.Cell>
                     </Table.Row>
                   ))
