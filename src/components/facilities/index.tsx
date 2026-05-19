@@ -1,13 +1,13 @@
 import FacilitiesCard from "@/components/card/FacilitiesCard";
-import { fetchFacilitiesData } from "@/helper/fetchData";
+import { getfacilitiesdData } from "@/helper/fetchData";
 import { TFacility } from "@/types/facilityType";
 
 const AllFacility = async () => {
-  const fetchAllFacilities = await fetchFacilitiesData();
+  const fetchAllFacilities = await getfacilitiesdData();
 
-  if (!fetchAllFacilities) return <p>No data found</p>;
+  if (!fetchAllFacilities.data) return <p>No data found</p>;
 
-const allFacilities: TFacility[]= fetchAllFacilities
+const allFacilities: TFacility[]= fetchAllFacilities.data
 
   return (
     <div className="mt-25 max-w-11/12 mx-auto">

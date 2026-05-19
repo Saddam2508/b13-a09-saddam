@@ -29,6 +29,11 @@ const nextConfig: NextConfig = {
         hostname: "pitchbooking.com",
         pathname: "**",
       },
+      {
+        protocol: "https",
+        hostname: "pixabay.com",
+        pathname: "**",
+      },
     ],
   },
 };

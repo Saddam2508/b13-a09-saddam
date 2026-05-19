@@ -1,6 +1,6 @@
 import { TFacility } from "@/types/facilityType";
 import { TLeisure } from "@/types/leisureType";
-import { body } from "framer-motion/client";
+
 
 export const fetchFacilitiesData = async () => {
   const baseUrl = process.env.BETTER_AUTH_URL;
