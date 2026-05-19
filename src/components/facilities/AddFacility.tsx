@@ -1,11 +1,27 @@
 "use client";
 import { Envelope } from "@gravity-ui/icons";
-import { Button, Input, Label, Modal, Surface, TextField } from "@heroui/react";
+import {
+  Button,
+  Input,
+  Label,
+  Link,
+  Modal,
+  Surface,
+  TextField,
+} from "@heroui/react";
 import { Table } from "@heroui/react";
+import { FormEvent } from "react";
 
 const AddFacility = () => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const allFacilities = Object.fromEntries(formData.entries());
+    console.log(allFacilities);
+  };
+
   return (
-    <div className="max-w-4xl mx-auto mt-30">
+    <div className="max-w-7xl mx-auto mt-30">
       <div className="my-2 text-end">
         <Modal>
           <Button variant="secondary">+ Add facility</Button>
@@ -21,36 +37,77 @@ const AddFacility = () => {
                 </Modal.Header>
                 <Modal.Body className="p-6">
                   <Surface variant="default">
-                    <form className="flex flex-col gap-4">
-                      <TextField className="w-full" name="name" type="text">
-                        <Label>Name</Label>
-                        <Input placeholder="Enter your name" />
+                    <form
+                      onSubmit={handleSubmit}
+                      className="flex flex-col gap-4"
+                    >
+                      <TextField
+                        className="w-full"
+                        name="name"
+                        type="text"
+                        defaultValue=""
+                      >
+                        <Label>Facility Name</Label>
+                        <Input placeholder="Enter facility name" />
+                      </TextField>
+                      <TextField
+                        className="w-full"
+                        name="facility type"
+                        type="text"
+                      >
+                        <Label>Facility Type</Label>
+                        <Input placeholder="Enter facility type" />
+                      </TextField>
+                      <TextField className="w-full" name="image" type="url">
+                        <Label>Image Upload</Label>
+                        <Input placeholder="Enter image url" />
+                      </TextField>
+                      <TextField className="w-full" name="location" type="text">
+                        <Label>Location</Label>
+                        <Input placeholder="Enter location name" />
+                      </TextField>
+                      <TextField className="w-full" name="price" type="number">
+                        <Label>Price Per Hour</Label>
+                        <Input placeholder="Enter price" />
+                      </TextField>
+                      <TextField className="w-full" name="capacity" type="text">
+                        <Label>Capacity</Label>
+                        <Input placeholder="Enter capacity" />
+                      </TextField>
+                      <div className="grid grid-cols-2 gap-4">
+                        <TextField name="startTime" type="time">
+                          <Label>Start Time</Label>
+                          <Input />
+                        </TextField>
+
+                        <TextField name="endTime" type="time">
+                          <Label>End Time</Label>
+                          <Input />
+                        </TextField>
+                      </div>
+                      <TextField
+                        className="w-full"
+                        name="description"
+                        type="text"
+                      >
+                        <Label>Description</Label>
+                        <Input placeholder="description" />
                       </TextField>
                       <TextField className="w-full" name="email" type="email">
-                        <Label>Email</Label>
-                        <Input placeholder="Enter your email" />
+                        <Label>Owner Email</Label>
+                        <Input placeholder="email" />
                       </TextField>
-                      <TextField className="w-full" name="phone" type="tel">
-                        <Label>Phone</Label>
-                        <Input placeholder="Enter your phone number" />
-                      </TextField>
-                      <TextField className="w-full" name="company">
-                        <Label>Company</Label>
-                        <Input placeholder="Enter your company name" />
-                      </TextField>
-                      <TextField className="w-full" name="message">
-                        <Label>Message</Label>
-                        <Input placeholder="Enter your message" />
-                      </TextField>
+                      <Modal.Footer>
+                        <Button slot="close" variant="secondary">
+                          Cancel
+                        </Button>
+                        <Button slot="close" type="submit">
+                          Add facility
+                        </Button>
+                      </Modal.Footer>
                     </form>
                   </Surface>
                 </Modal.Body>
-                <Modal.Footer>
-                  <Button slot="close" variant="secondary">
-                    Cancel
-                  </Button>
-                  <Button slot="close">Send Message</Button>
-                </Modal.Footer>
               </Modal.Dialog>
             </Modal.Container>
           </Modal.Backdrop>
@@ -62,10 +119,17 @@ const AddFacility = () => {
           <Table.ScrollContainer>
             <Table.Content aria-label="Team members" className="min-w-[600px]">
               <Table.Header>
-                <Table.Column isRowHeader>Name</Table.Column>
-                <Table.Column>Role</Table.Column>
-                <Table.Column>Status</Table.Column>
-                <Table.Column>Email</Table.Column>
+                <Table.Column isRowHeader>Facility Name</Table.Column>
+                <Table.Column>Facility Type</Table.Column>
+                <Table.Column>Image Upload</Table.Column>
+                <Table.Column>Location</Table.Column>
+                <Table.Column>Price Per Hour</Table.Column>
+                <Table.Column>Capacity</Table.Column>
+                <Table.Column>Available Time Slots</Table.Column>
+                <Table.Column>Description</Table.Column>
+                <Table.Column>Owner Email</Table.Column>
+                <Table.Column>Edit</Table.Column>
+                <Table.Column>Delete</Table.Column>
               </Table.Header>
               <Table.Body>
                 <Table.Row>
@@ -73,24 +137,17 @@ const AddFacility = () => {
                   <Table.Cell>CEO</Table.Cell>
                   <Table.Cell>Active</Table.Cell>
                   <Table.Cell>kate@acme.com</Table.Cell>
-                </Table.Row>
-                <Table.Row>
-                  <Table.Cell>John Smith</Table.Cell>
-                  <Table.Cell>CTO</Table.Cell>
-                  <Table.Cell>Active</Table.Cell>
-                  <Table.Cell>john@acme.com</Table.Cell>
-                </Table.Row>
-                <Table.Row>
-                  <Table.Cell>Sara Johnson</Table.Cell>
-                  <Table.Cell>CMO</Table.Cell>
-                  <Table.Cell>On Leave</Table.Cell>
-                  <Table.Cell>sara@acme.com</Table.Cell>
-                </Table.Row>
-                <Table.Row>
-                  <Table.Cell>Michael Brown</Table.Cell>
-                  <Table.Cell>CFO</Table.Cell>
-                  <Table.Cell>Active</Table.Cell>
-                  <Table.Cell>michael@acme.com</Table.Cell>
+                  <Table.Cell>kate@acme.com</Table.Cell>
+                  <Table.Cell>kate@acme.com</Table.Cell>
+                  <Table.Cell>kate@acme.com</Table.Cell>
+                  <Table.Cell>kate@acme.com</Table.Cell>
+                  <Table.Cell>kate@acme.com</Table.Cell>
+                  <Table.Cell>
+                    <Link href="/">Edit</Link>
+                  </Table.Cell>
+                  <Table.Cell>
+                    <Link href="/">Delete</Link>
+                  </Table.Cell>
                 </Table.Row>
               </Table.Body>
             </Table.Content>
