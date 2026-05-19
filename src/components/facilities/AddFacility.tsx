@@ -1,5 +1,10 @@
 "use client";
-import { createFacilitiesdData, fetchFacilitiesData, getfacilitiesdData } from "@/helper/fetchData";
+import {
+  createFacilitiesdData,
+  fetchFacilitiesData,
+  getfacilitiesdData,
+  updatefacilitiesdData,
+} from "@/helper/fetchData";
 import { TFacility } from "@/types/facilityType";
 import { Envelope } from "@gravity-ui/icons";
 import {
@@ -16,24 +21,23 @@ import Image from "next/image";
 import { FormEvent, useEffect, useState } from "react";
 
 const AddFacility = () => {
-  const facilityData: TFacility = {
-    facilityName: "",
-    facilityType: "",
-    image: "",
-    location: "",
-    pricePerHour: 0,
-    capacity: 0,
-    availableTimeSlots: "",
-    description: "",
-    email: "",
-  };
+  const [facilities, setFacilities] = useState<TFacility[]>([]);
+  const [selectedFacility, setSelectedFacility] = useState<TFacility | null>(
+    null,
+  );
+  const [open, setOpen] = useState<boolean>(false);
 
-  const [facilities, setFacilities] = useState<TFacility[]>([facilityData]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await getfacilitiesdData();
+      console.log(result.data);
+      if (result?.data) {
+        setFacilities(result.data);
+      }
+    };
 
-useEffect(()=>{
-  getfacilitiesdData()
-},[])
-
+    fetchData();
+  }, []);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -43,16 +47,29 @@ useEffect(()=>{
       ...allFacilityData,
       availableTimeSlots: `${allFacilityData.startTime} - ${allFacilityData.endTime}`,
     };
-    setFacilities((prev) => [...prev, facility as TFacility]);
-    await createFacilitiesdData(facility as TFacility)
-    
+    // setFacilities((prev) => [...prev, facility as TFacility]);
+    // await createFacilitiesdData(facility as TFacility);
+
+    if (selectedFacility?._id) {
+      await updatefacilitiesdData(selectedFacility._id, facility);
+    } else {
+      await createFacilitiesdData(facility as TFacility);
+    }
   };
 
   return (
     <div className="max-w-7xl mx-auto mt-30">
       <div className="my-2 text-end">
-        <Modal>
-          <Button variant="secondary">+ Add facility</Button>
+        <Modal isOpen={open} onOpenChange={setOpen}>
+          <Button
+            variant="secondary"
+            onPress={() => {
+              setSelectedFacility(null);
+              setOpen(true);
+            }}
+          >
+            {selectedFacility ? "Update" : " + Add facility"}
+          </Button>
           <Modal.Backdrop>
             <Modal.Container placement="auto">
               <Modal.Dialog className="sm:max-w-md">
@@ -73,7 +90,7 @@ useEffect(()=>{
                         className="w-full"
                         name="name"
                         type="text"
-                        defaultValue=""
+                        defaultValue={selectedFacility?.facilityName}
                       >
                         <Label>Facility Name</Label>
                         <Input
@@ -83,61 +100,95 @@ useEffect(()=>{
                       </TextField>
                       <TextField
                         className="w-full"
-                        name="facilityType"
                         type="text"
+                        defaultValue={selectedFacility?.facilityType}
                       >
                         <Label>Facility Type</Label>
-                        <Input placeholder="Enter facility type" />
-                      </TextField>
-                      <TextField className="w-full" name="image" type="url">
-                        <Label>Image Upload</Label>
-                        <Input placeholder="Enter image url" />
-                      </TextField>
-                      <TextField className="w-full" name="location" type="text">
-                        <Label>Location</Label>
-                        <Input placeholder="Enter location name" />
-                      </TextField>
-                      <TextField className="w-full" name="price" type="number">
-                        <Label>Price Per Hour</Label>
-                        <Input placeholder="Enter price" />
+                        <Input
+                          placeholder="Enter facility type"
+                          name="facilityType"
+                        />
                       </TextField>
                       <TextField
                         className="w-full"
-                        name="capacity"
-                        type="number"
+                        defaultValue={selectedFacility?.image}
+                      >
+                        <Label>Image Upload</Label>
+                        <Input
+                          placeholder="Enter image url"
+                          name="image"
+                          type="url"
+                        />
+                      </TextField>
+                      <TextField
+                        className="w-full"
+                        name="location"
+                        type="text"
+                        defaultValue={selectedFacility?.location}
+                      >
+                        <Label>Location</Label>
+                        <Input
+                          placeholder="Enter location name"
+                          name="location"
+                        />
+                      </TextField>
+                      <TextField
+                        className="w-full"
+                        defaultValue={selectedFacility?.pricePerHour.toString()}
+                      >
+                        <Label>Price Per Hour</Label>
+                        <Input
+                          placeholder="Enter price"
+                          name="pricePerHour"
+                          type="number"
+                        />
+                      </TextField>
+                      <TextField
+                        className="w-full"
+                        defaultValue={selectedFacility?.capacity.toString()}
                       >
                         <Label>Capacity</Label>
-                        <Input placeholder="Enter capacity" />
+                        <Input
+                          placeholder="Enter capacity"
+                          name="capacity"
+                          type="number"
+                        />
                       </TextField>
                       <div className="grid grid-cols-2 gap-4">
-                        <TextField name="startTime" type="time">
+                        <TextField defaultValue="">
                           <Label>Start Time</Label>
-                          <Input />
+                          <Input name="startTime" type="time" />
                         </TextField>
 
-                        <TextField name="endTime" type="time">
+                        <TextField defaultValue="">
                           <Label>End Time</Label>
-                          <Input />
+                          <Input name="endTime" type="time" />
                         </TextField>
                       </div>
                       <TextField
                         className="w-full"
-                        name="description"
-                        type="text"
+                        defaultValue={selectedFacility?.description}
                       >
                         <Label>Description</Label>
-                        <Input placeholder="description" />
+                        <Input
+                          placeholder="description"
+                          name="description"
+                          type="text"
+                        />
                       </TextField>
-                      <TextField className="w-full" name="email" type="email">
+                      <TextField
+                        className="w-full "
+                        defaultValue={selectedFacility?.email}
+                      >
                         <Label>Owner Email</Label>
-                        <Input placeholder="email" />
+                        <Input placeholder="email" name="email" type="email" />
                       </TextField>
                       <Modal.Footer>
                         <Button slot="close" variant="secondary">
                           Cancel
                         </Button>
                         <Button slot="close" type="submit">
-                          Add facility
+                          {selectedFacility ? "Update" : " + Add facility"}
                         </Button>
                       </Modal.Footer>
                     </form>
@@ -167,38 +218,47 @@ useEffect(()=>{
                 <Table.Column>Delete</Table.Column>
               </Table.Header>
               <Table.Body>
-                {facilities.length > 0
-                  ? facilities.map((faci, i) => (
-                      <Table.Row key={i}>
-                        <Table.Cell> {faci.facilityName} </Table.Cell>
-                        <Table.Cell> {faci.facilityType} </Table.Cell>
-                        <Table.Cell>
-                          {" "}
-                          {faci.image && (
-                            <Image
-                              src={faci.image}
-                              alt=""
-                              width={50}
-                              height={50}
-                              unoptimized
-                            />
-                          )}{" "}
-                        </Table.Cell>
-                        <Table.Cell> {faci.location} </Table.Cell>
-                        <Table.Cell> {faci.pricePerHour} </Table.Cell>
-                        <Table.Cell> {faci.capacity} </Table.Cell>
-                        <Table.Cell> {faci.availableTimeSlots} </Table.Cell>
-                        <Table.Cell> {faci.description} </Table.Cell>
-                        <Table.Cell> {faci.email} </Table.Cell>
-                        <Table.Cell>
-                          <Link href="/">Edit</Link>
-                        </Table.Cell>
-                        <Table.Cell>
-                          <Link href="/">Delete</Link>
-                        </Table.Cell>
-                      </Table.Row>
-                    ))
-                  : ""}
+                {facilities.length > 0 ? (
+                  facilities.map((faci, i) => (
+                    <Table.Row key={i}>
+                      <Table.Cell> {faci.facilityName} </Table.Cell>
+                      <Table.Cell> {faci.facilityType} </Table.Cell>
+                      <Table.Cell>
+                        {" "}
+                        {faci.image && (
+                          <Image
+                            src={faci.image}
+                            alt=""
+                            width={50}
+                            height={50}
+                            unoptimized
+                          />
+                        )}{" "}
+                      </Table.Cell>
+                      <Table.Cell> {faci.location} </Table.Cell>
+                      <Table.Cell> {faci.pricePerHour} </Table.Cell>
+                      <Table.Cell> {faci.capacity} </Table.Cell>
+                      <Table.Cell> {faci.availableTimeSlots} </Table.Cell>
+                      <Table.Cell> {faci.description} </Table.Cell>
+                      <Table.Cell> {faci.email} </Table.Cell>
+                      <Table.Cell>
+                        <Button
+                          onPress={() => {
+                            setSelectedFacility(faci);
+                            setOpen(true);
+                          }}
+                        >
+                          Edit
+                        </Button>
+                      </Table.Cell>
+                      <Table.Cell>
+                        <Link href="/">Delete</Link>
+                      </Table.Cell>
+                    </Table.Row>
+                  ))
+                ) : (
+                  <p>No data found</p>
+                )}
               </Table.Body>
             </Table.Content>
           </Table.ScrollContainer>

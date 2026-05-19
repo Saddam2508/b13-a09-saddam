@@ -11,10 +11,9 @@ export const fetchFacilitiesData = async () => {
   if (!res.ok) return null;
 
   const facilitiy: TFacility[] = await res.json();
- 
+
   return facilitiy;
 };
-
 
 export const fetchLeisureData = async () => {
   const baseUrl = process.env.BETTER_AUTH_URL;
@@ -25,7 +24,7 @@ export const fetchLeisureData = async () => {
   if (!res.ok) return null;
 
   const leisure: TLeisure[] = await res.json();
- 
+
   return leisure;
 };
 
@@ -38,42 +37,51 @@ export const fetchTrustedData = async () => {
   if (!res.ok) return null;
 
   const trusted: TLeisure[] = await res.json();
- 
+
   return trusted;
 };
 
-export const createFacilitiesdData = async (facility:TFacility) => {
+export const createFacilitiesdData = async (facility: TFacility) => {
   const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL;
 
   if (!baseUrl) throw new Error("Missing APP_URL");
 
   const res = await fetch(`${baseUrl}/api/facilities`, {
     method: "POST",
-    headers: {"content-type": "application/json"},
-    body: JSON.stringify(facility)
-  }
-
-);
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(facility),
+  });
 
   if (!res.ok) return null;
 
   const data: TFacility = await res.json();
- 
+
   return data;
 };
 
-export const getfacilitiesdData = async () => {
+type TFacilityResponse = {
+  success: boolean;
+  data: TFacility[];
+};
+
+export const getfacilitiesdData = async (): Promise<TFacilityResponse> => {
   const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL;
   if (!baseUrl) throw new Error("Missing APP_URL");
 
-  const res = await fetch(`${baseUrl}/api/facilities`
+  const res = await fetch(`${baseUrl}/api/facilities`);
 
-);
-
-  if (!res.ok) return null;
-
-  const data: TFacility = await res.json();
- 
-  return data;
+  return res.json();
 };
 
+export const updatefacilitiesdData =  async (id: string, facility: Partial<TFacility>): Promise<TFacilityResponse> => {
+  const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL;
+  if (!baseUrl) throw new Error("Missing APP_URL");
+
+  const res = await fetch(`${baseUrl}/api/facilities/${id}`, {
+    method: "PUT",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(facility),
+  });
+
+  return res.json();
+};

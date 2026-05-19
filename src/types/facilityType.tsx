@@ -1,4 +1,5 @@
 export type TFacility = {
+  _id: string;
   facilityName: string;
   facilityType: string;
   image: string;
