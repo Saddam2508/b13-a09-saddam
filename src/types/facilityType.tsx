@@ -5,6 +5,7 @@ export type TFacility = {
   location: string;
   pricePerHour: number;
   capacity: number;
-  availableTimeSlots: string[];
+  availableTimeSlots: string;
   description: string;
+  email: string;
 };

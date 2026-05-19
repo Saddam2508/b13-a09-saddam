@@ -1,4 +1,5 @@
 "use client";
+import { TFacility } from "@/types/facilityType";
 import { Envelope } from "@gravity-ui/icons";
 import {
   Button,
@@ -10,14 +11,33 @@ import {
   TextField,
 } from "@heroui/react";
 import { Table } from "@heroui/react";
-import { FormEvent } from "react";
+import Image from "next/image";
+import { FormEvent, useState } from "react";
 
 const AddFacility = () => {
+  const facilityData: TFacility = {
+    facilityName: "",
+    facilityType: "",
+    image: "",
+    location: "",
+    pricePerHour: 0,
+    capacity: 0,
+    availableTimeSlots: "",
+    description: "",
+    email: "",
+  };
+
+  const [facilities, setFacilities] = useState<TFacility[]>([facilityData]);
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const allFacilities = Object.fromEntries(formData.entries());
-    console.log(allFacilities);
+    const allFacilityData = Object.fromEntries(formData.entries());
+    const facility = {
+      ...allFacilityData,
+      availableTimeSlots: `${allFacilityData.startTime} - ${allFacilityData.endTime}`,
+    };
+    setFacilities((prev) => [...prev, facility as TFacility]);
   };
 
   return (
@@ -48,11 +68,14 @@ const AddFacility = () => {
                         defaultValue=""
                       >
                         <Label>Facility Name</Label>
-                        <Input placeholder="Enter facility name" />
+                        <Input
+                          placeholder="Enter facility name"
+                          name="facilityName"
+                        />
                       </TextField>
                       <TextField
                         className="w-full"
-                        name="facility type"
+                        name="facilityType"
                         type="text"
                       >
                         <Label>Facility Type</Label>
@@ -70,7 +93,11 @@ const AddFacility = () => {
                         <Label>Price Per Hour</Label>
                         <Input placeholder="Enter price" />
                       </TextField>
-                      <TextField className="w-full" name="capacity" type="text">
+                      <TextField
+                        className="w-full"
+                        name="capacity"
+                        type="number"
+                      >
                         <Label>Capacity</Label>
                         <Input placeholder="Enter capacity" />
                       </TextField>
@@ -132,23 +159,38 @@ const AddFacility = () => {
                 <Table.Column>Delete</Table.Column>
               </Table.Header>
               <Table.Body>
-                <Table.Row>
-                  <Table.Cell>Kate Moore</Table.Cell>
-                  <Table.Cell>CEO</Table.Cell>
-                  <Table.Cell>Active</Table.Cell>
-                  <Table.Cell>kate@acme.com</Table.Cell>
-                  <Table.Cell>kate@acme.com</Table.Cell>
-                  <Table.Cell>kate@acme.com</Table.Cell>
-                  <Table.Cell>kate@acme.com</Table.Cell>
-                  <Table.Cell>kate@acme.com</Table.Cell>
-                  <Table.Cell>kate@acme.com</Table.Cell>
-                  <Table.Cell>
-                    <Link href="/">Edit</Link>
-                  </Table.Cell>
-                  <Table.Cell>
-                    <Link href="/">Delete</Link>
-                  </Table.Cell>
-                </Table.Row>
+                {facilities.length > 0
+                  ? facilities.map((faci, i) => (
+                      <Table.Row key={i}>
+                        <Table.Cell> {faci.facilityName} </Table.Cell>
+                        <Table.Cell> {faci.facilityType} </Table.Cell>
+                        <Table.Cell>
+                          {" "}
+                          {faci.image && (
+                            <Image
+                              src={faci.image}
+                              alt=""
+                              width={50}
+                              height={50}
+                              unoptimized
+                            />
+                          )}{" "}
+                        </Table.Cell>
+                        <Table.Cell> {faci.location} </Table.Cell>
+                        <Table.Cell> {faci.pricePerHour} </Table.Cell>
+                        <Table.Cell> {faci.capacity} </Table.Cell>
+                        <Table.Cell> {faci.availableTimeSlots} </Table.Cell>
+                        <Table.Cell> {faci.description} </Table.Cell>
+                        <Table.Cell> {faci.email} </Table.Cell>
+                        <Table.Cell>
+                          <Link href="/">Edit</Link>
+                        </Table.Cell>
+                        <Table.Cell>
+                          <Link href="/">Delete</Link>
+                        </Table.Cell>
+                      </Table.Row>
+                    ))
+                  : ""}
               </Table.Body>
             </Table.Content>
           </Table.ScrollContainer>
