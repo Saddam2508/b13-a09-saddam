@@ -47,13 +47,16 @@ const AddFacility = () => {
       ...allFacilityData,
       availableTimeSlots: `${allFacilityData.startTime} - ${allFacilityData.endTime}`,
     };
-    // setFacilities((prev) => [...prev, facility as TFacility]);
-    // await createFacilitiesdData(facility as TFacility);
-
+  
     if (selectedFacility?._id) {
       await updatefacilitiesdData(selectedFacility._id, facility);
+      setSelectedFacility(null)
     } else {
       await createFacilitiesdData(facility as TFacility);
+    }
+    const result = await getfacilitiesdData()
+    if(result.data){
+      setFacilities(result.data)
     }
   };
 
