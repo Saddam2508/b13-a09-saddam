@@ -1,5 +1,4 @@
 const MyBookingPage = () => {
-
   return <div>
     
   </div>;

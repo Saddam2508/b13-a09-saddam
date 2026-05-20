@@ -7,39 +7,44 @@ import { authClient } from "@/lib/auth-client";
 import toast from "react-hot-toast";
 import { TFacility } from "@/types/facilityType";
 import { DateValue } from "@internationalized/date";
+import { createBookingdData } from "@/helper/fetchData";
 
 const BookingCard = ({ facility }: { facility: TFacility }) => {
   const { data: session } = authClient.useSession();
   const user = session?.user;
-  const [departureDate, setDepartureDate] = useState<DateValue | null>(null);
+  const [bookingDate, setBookingDate] = useState<DateValue | null>(null);
 
-  const { facilityName, pricePerHour, image, _id } = facility;
+  const { facilityName, pricePerHour, image, _id, availableTimeSlots } = facility;
+
+type BookingInfo = " facilityType"| "id"| "location" |"capacity"|"description" |"email"
+
+type BookingPayload = Omit<TFacility, BookingInfo> & {
+  userId?: string;
+  userImage?: string;
+  userName?: string;
+  facilityId:string,
+  bookingDate: Date | null;
+  status: "pending" | "fulfilled";
+};
 
   const handleBooking = async () => {
-    const bookingData = {
+    const bookingData: BookingPayload = {
       userId: user?.id,
-      userImage: user?.image,
+      userImage: user?.image || "",
       userName: user?.name,
-      destinationId: _id,
+      facilityId: _id,
       facilityName,
+      availableTimeSlots,
       pricePerHour,
       image,
       // country,
-      departureDate: departureDate ? departureDate.toDate("Asia/Dhaka") : null,
+      bookingDate: bookingDate ? bookingDate.toDate("Asia/Dhaka") : null,
+      status: facility._id? "pending": "fulfilled"
     };
 
     // const {data:tokenData} = await authClient.token()
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/booking`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-        // authorization: `Bearer ${tokenData?.token}`
-      },
-      body: JSON.stringify(bookingData),
-    });
-
-    const data = await res.json();
+    const data = await createBookingdData(bookingData)
 
     toast.success("You booked successfully!");
   };
@@ -50,7 +55,7 @@ const BookingCard = ({ facility }: { facility: TFacility }) => {
       <h2 className="text-3xl font-bold text-cyan-500">${pricePerHour}</h2>
       <p className="text-sm text-muted">per person</p>
 
-      <DateField onChange={setDepartureDate} className="w-[256px]" name="date">
+      <DateField onChange={setBookingDate} className="w-[256px]" name="date">
         <Label>Departure Date</Label>
         <DateField.Group>
           <DateField.Input>

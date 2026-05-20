@@ -2,7 +2,7 @@ import { TFacility } from "@/types/facilityType";
 import Image from "next/image";
 import BookingCard from "../card/BookingCard";
 import { FaRegCalendar } from "react-icons/fa";
-import { LuMapPin } from "react-icons/lu";
+
 
 const FacilitiesDetails = ({ facility }: { facility: TFacility }) => {
     

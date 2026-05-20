@@ -101,3 +101,22 @@ export const deletefacilitiesdData =  async (id: string) => {
   }
   return res.json();
 };
+
+export const createBookingdData = async (facility: TFacility) => {
+  const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL;
+
+  if (!baseUrl) throw new Error("Missing APP_URL");
+
+  const res = await fetch(`${baseUrl}/api/facilities`, {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(facility),
+  });
+
+  if (!res.ok) return null;
+
+  const data: TFacility = await res.json();
+
+  return data;
+};
+
