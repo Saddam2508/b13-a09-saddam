@@ -16,10 +16,12 @@ const FacilitiesDetailsPage = async ({
 const allFacilities: TFacility[]= fetchAllFacilities.data
 
 const selectedFacility = allFacilities.find((facility)=>facility._id === id)
-console.log(selectedFacility)
+
+if(!selectedFacility) return null
+
   return (
-    <div>
-      <FacilitiesDetails />
+    <div className="mt-25 max-w-11/12 mx-auto">
+      <FacilitiesDetails facility = {selectedFacility}/>
     </div>
   );
 };
