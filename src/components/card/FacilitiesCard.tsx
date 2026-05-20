@@ -25,7 +25,7 @@ const FacilitiesCard = ({ facilities }: { facilities: TFacility }) => {
             </Chip>
           </div>
           <Link
-            href={"/facilities-details"}
+            href={`/facilities/${facilities._id}`}
             className="absolute right-2  bottom-2 opacity-0 transition duration-300 group-hover:opacity-100"
           >
             <Button className= "hidden sm:flex">View Details</Button>

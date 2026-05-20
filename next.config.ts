@@ -34,6 +34,11 @@ const nextConfig: NextConfig = {
         hostname: "pixabay.com",
         pathname: "**",
       },
+      {
+        protocol: "https",
+        hostname: "encrypted-tbn0.gstatic.com",
+        pathname: "**",
+      },
     ],
   },
 };
