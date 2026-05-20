@@ -8,44 +8,30 @@ import toast from "react-hot-toast";
 import { TFacility } from "@/types/facilityType";
 import { DateValue } from "@internationalized/date";
 import { createBookingdData } from "@/helper/fetchData";
+import { BookingPayload } from "@/types/bookingType";
 
 const BookingCard = ({ facility }: { facility: TFacility }) => {
   const { data: session } = authClient.useSession();
   const user = session?.user;
   const [bookingDate, setBookingDate] = useState<DateValue | null>(null);
+  const [hours, setHours] = useState<number>(1);
 
-  const { facilityName, pricePerHour, image, _id, availableTimeSlots } = facility;
-
-type BookingInfo = " facilityType"| "id"| "location" |"capacity"|"description" |"email"
-
-type BookingPayload = Omit<TFacility, BookingInfo> & {
-  userId?: string;
-  userImage?: string;
-  userName?: string;
-  facilityId:string,
-  bookingDate: Date | null;
-  status: "pending" | "fulfilled";
-};
+  const { pricePerHour, _id, availableTimeSlots } = facility;
 
   const handleBooking = async () => {
     const bookingData: BookingPayload = {
-      userId: user?.id,
-      userImage: user?.image || "",
-      userName: user?.name,
       facilityId: _id,
-      facilityName,
-      availableTimeSlots,
-      pricePerHour,
-      image,
-      // country,
+      user_email: user?.email || "",
       bookingDate: bookingDate ? bookingDate.toDate("Asia/Dhaka") : null,
-      status: facility._id? "pending": "fulfilled"
+      availableTimeSlots,
+      hours,
+      pricePerHour,
+      status: facility._id ? "pending" : "fulfilled",
     };
 
     // const {data:tokenData} = await authClient.token()
 
-    const data = await createBookingdData(bookingData)
-
+    const data = await createBookingdData(bookingData);
     toast.success("You booked successfully!");
   };
 

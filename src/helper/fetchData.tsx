@@ -1,6 +1,6 @@
+import { BookingPayload } from "@/types/bookingType";
 import { TFacility } from "@/types/facilityType";
 import { TLeisure } from "@/types/leisureType";
-
 
 export const fetchFacilitiesData = async () => {
   const baseUrl = process.env.BETTER_AUTH_URL;
@@ -75,7 +75,10 @@ export const getfacilitiesdData = async (): Promise<TFacilityResponse> => {
   return res.json();
 };
 
-export const updatefacilitiesdData =  async (id: string, facility: Partial<TFacility>): Promise<TFacilityResponse> => {
+export const updatefacilitiesdData = async (
+  id: string,
+  facility: Partial<TFacility>,
+): Promise<TFacilityResponse> => {
   const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL;
   if (!baseUrl) throw new Error("Missing APP_URL");
 
@@ -90,24 +93,24 @@ export const updatefacilitiesdData =  async (id: string, facility: Partial<TFaci
   return res.json();
 };
 
-export const deletefacilitiesdData =  async (id: string) => {
+export const deletefacilitiesdData = async (id: string) => {
   const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL;
   if (!baseUrl) throw new Error("Missing APP_URL");
   const res = await fetch(`${baseUrl}/api/facilities/${id}`, {
     method: "DELETE",
   });
-    if (!res.ok) {
+  if (!res.ok) {
     throw new Error("Failed to delete facility");
   }
   return res.json();
 };
 
-export const createBookingdData = async (facility: TFacility) => {
+export const createBookingdData = async (facility: BookingPayload) => {
   const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL;
 
   if (!baseUrl) throw new Error("Missing APP_URL");
 
-  const res = await fetch(`${baseUrl}/api/facilities`, {
+  const res = await fetch(`${baseUrl}/api/booking`, {
     method: "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify(facility),
@@ -115,8 +118,34 @@ export const createBookingdData = async (facility: TFacility) => {
 
   if (!res.ok) return null;
 
-  const data: TFacility = await res.json();
-
+  const data: BookingPayload = await res.json();
   return data;
 };
 
+type TBookingResponse = {
+  success: boolean;
+  data: BookingPayload[];
+};
+
+export const getBookingData = async (): Promise<TBookingResponse> => {
+  const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL;
+  if (!baseUrl) throw new Error("Missing APP_URL");
+
+  const res = await fetch(`${baseUrl}/api/booking`);
+  if (!res.ok) {
+    throw new Error("Failed to get booking");
+  }
+  return res.json();
+};
+
+export const deleteBookingData = async (id: string) => {
+  const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL;
+  if (!baseUrl) throw new Error("Missing APP_URL");
+  const res = await fetch(`${baseUrl}/api/booking/${id}`, {
+    method: "DELETE",
+  });
+  if (!res.ok) {
+    throw new Error("Failed to delete booking");
+  }
+  return res.json();
+};
