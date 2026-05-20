@@ -1,7 +1,6 @@
 import { TFacility } from "./facilityType";
 
 type BookingInfo =
-  | "facilityName"
   | "image"
   | "facilityType"
   | "id"

@@ -55,7 +55,7 @@ const MyBooking = () => {
                     <Table.Cell> {booking.status} </Table.Cell>
                     <Table.Cell>
                       <Button onClick={() => handleDelete(booking._id!)}>
-                        Delete
+                        Cancel Booking
                       </Button>
                     </Table.Cell>
                   </Table.Row>
