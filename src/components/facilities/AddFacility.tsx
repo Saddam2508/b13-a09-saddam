@@ -5,6 +5,7 @@ import {
   getfacilitiesdData,
   updatefacilitiesdData,
 } from "@/helper/fetchData";
+import { AlertDialog } from "@heroui/react";
 import { TFacility } from "@/types/facilityType";
 import { Envelope } from "@gravity-ui/icons";
 import { Button, Input, Label, Modal, Surface, TextField } from "@heroui/react";
@@ -12,7 +13,7 @@ import { Table } from "@heroui/react";
 import Image from "next/image";
 import { FormEvent, useEffect, useState } from "react";
 
-const AddFacility = () => {
+const AddFacility = ({ token }: { token: string }) => {
   const [facilities, setFacilities] = useState<TFacility[]>([]);
   const [selectedFacility, setSelectedFacility] = useState<TFacility | null>(
     null,
@@ -21,7 +22,7 @@ const AddFacility = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await getfacilitiesdData();
+      const result = await getfacilitiesdData(token);
       if (result?.data) {
         setFacilities(result.data);
       }
@@ -45,7 +46,7 @@ const AddFacility = () => {
     } else {
       await createFacilitiesdData(facility as TFacility);
     }
-    const result = await getfacilitiesdData();
+    const result = await getfacilitiesdData(token);
     if (result.data) {
       setFacilities(result.data);
     }
@@ -53,7 +54,7 @@ const AddFacility = () => {
 
   const handleDelete = async (id: string) => {
     await deletefacilitiesdData(id);
-    const result = await getfacilitiesdData();
+    const result = await getfacilitiesdData(token);
     if (result.data) {
       setFacilities(result.data);
     }
@@ -241,7 +242,10 @@ const AddFacility = () => {
                       <Table.Cell> {faci.pricePerHour} </Table.Cell>
                       <Table.Cell> {faci.capacity} </Table.Cell>
                       <Table.Cell> {faci.availableTimeSlots} </Table.Cell>
-                      <Table.Cell> {faci.description.substring(0, 100)}...... </Table.Cell>
+                      <Table.Cell>
+                        {" "}
+                        {faci.description.substring(0, 100)}......{" "}
+                      </Table.Cell>
                       <Table.Cell> {faci.email} </Table.Cell>
                       <Table.Cell>
                         <Button
@@ -254,9 +258,37 @@ const AddFacility = () => {
                         </Button>
                       </Table.Cell>
                       <Table.Cell>
-                        <Button onClick={() => handleDelete(faci._id)}>
-                          Delete
-                        </Button>
+                        <AlertDialog>
+                          <Button variant="danger">Delete facility</Button>
+                          <AlertDialog.Backdrop>
+                            <AlertDialog.Container>
+                              <AlertDialog.Dialog className="sm:max-w-[400px]">
+                                <AlertDialog.CloseTrigger />
+                                <AlertDialog.Header>
+                                  <AlertDialog.Icon status="danger" />
+                                  <AlertDialog.Heading>
+                                    Delete facility permanently?
+                                  </AlertDialog.Heading>
+                                </AlertDialog.Header>
+                                <AlertDialog.Body>
+                                  <p>This will permanently delete facility</p>
+                                </AlertDialog.Body>
+                                <AlertDialog.Footer>
+                                  <Button slot="close" variant="tertiary">
+                                    Cancel
+                                  </Button>
+                                  <Button
+                                    slot="close"
+                                    variant="danger"
+                                    onClick={() => handleDelete(faci._id)}
+                                  >
+                                    Delete facility
+                                  </Button>
+                                </AlertDialog.Footer>
+                              </AlertDialog.Dialog>
+                            </AlertDialog.Container>
+                          </AlertDialog.Backdrop>
+                        </AlertDialog>
                       </Table.Cell>
                     </Table.Row>
                   ))

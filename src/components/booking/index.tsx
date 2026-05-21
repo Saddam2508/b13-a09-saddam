@@ -3,6 +3,7 @@ import { deleteBookingData, getBookingData } from "@/helper/fetchData";
 import { BookingPayload } from "@/types/bookingType";
 import { Button, Table } from "@heroui/react";
 import { useEffect, useState } from "react";
+import { AlertDialog } from "@heroui/react";
 
 const MyBooking = () => {
   const [allBookingData, setAllBookingData] = useState<BookingPayload[]>([]);
@@ -54,9 +55,41 @@ const MyBooking = () => {
                     <Table.Cell> {booking.pricePerHour} </Table.Cell>
                     <Table.Cell> {booking.status} </Table.Cell>
                     <Table.Cell>
-                      <Button onClick={() => handleDelete(booking._id!)}>
-                        Cancel Booking
-                      </Button>
+                      <AlertDialog>
+                        <Button variant="danger">Cancel Booking</Button>
+                        <AlertDialog.Backdrop>
+                          <AlertDialog.Container>
+                            <AlertDialog.Dialog className="sm:max-w-[400px]">
+                              <AlertDialog.CloseTrigger />
+                              <AlertDialog.Header>
+                                <AlertDialog.Icon status="danger" />
+                                <AlertDialog.Heading>
+                                  Cancel booking permanently?
+                                </AlertDialog.Heading>
+                              </AlertDialog.Header>
+                              <AlertDialog.Body>
+                                <p>
+                                  This will permanently delete{" "}
+                                  <strong>My Awesome Project</strong> and all of
+                                  its data. This action cannot be undone.
+                                </p>
+                              </AlertDialog.Body>
+                              <AlertDialog.Footer>
+                                <Button slot="close" variant="tertiary">
+                                  Cancel
+                                </Button>
+                                <Button
+                                  slot="close"
+                                  variant="danger"
+                                  onClick={() => handleDelete(booking._id!)}
+                                >
+                                  Cancel booking
+                                </Button>
+                              </AlertDialog.Footer>
+                            </AlertDialog.Dialog>
+                          </AlertDialog.Container>
+                        </AlertDialog.Backdrop>
+                      </AlertDialog>
                     </Table.Cell>
                   </Table.Row>
                 ))
