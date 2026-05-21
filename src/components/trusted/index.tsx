@@ -10,8 +10,8 @@ const Trusted = async () => {
 
   const allTrustedImage: TGalleryImage[] = fetchAllTrustedImage;
   return (
-    <div className="mt-25 max-w-11/12 mx-auto overflow-hidden bg-gray-50 p-5">
-      <h2 className="text-center text-6xl font-bold py-5 mb-10">
+    <div className="mt-5 md:mt-25 max-w-11/12 mx-auto overflow-hidden bg-gray-50 p-5">
+      <h2 className="text-center text-[1.25rem] md:text-6xl font-bold py-5 mb-10">
         Trusted by organisations across the world
       </h2>
       <Marquee speed={60}>

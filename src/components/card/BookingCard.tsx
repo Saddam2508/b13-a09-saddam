@@ -90,7 +90,7 @@ const BookingCard = ({ facility }: { facility: TFacility }) => {
 
   const handleBooking = async () => {
     if(!user) return redirect("/login")
-      
+            
     if (!bookingDate) {
       toast.error("Please select booking date");
       return;

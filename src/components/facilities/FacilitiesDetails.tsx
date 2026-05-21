@@ -1,7 +1,7 @@
 import { TFacility } from "@/types/facilityType";
 import Image from "next/image";
 import BookingCard from "../card/BookingCard";
-import { FaRegCalendar } from "react-icons/fa";
+
 
 const FacilitiesDetails = ({ facility }: { facility: TFacility }) => {
   return (

@@ -100,47 +100,52 @@ const Navbar = () => {
           </div>
           <div className="navbar-end">
             {user ? (
-              <div onClick={() => setToggle(!toggle)} className="relative">
-                <div className="avatar avatar-online">
-                  <div className="w-24 rounded-full">
-                    <Image
-                      src={ user?.image || "https://img.daisyui.com/images/profile/demo/gordon@192.webp"
-                      }
-                      alt="profile"
-                      width={20}
-                      height={20}
-                      unoptimized
-                    />
+              <div className="relative">
+                <button onClick={() => setToggle(!toggle)}>
+                  <div className="avatar avatar-online">
+                    <div className="w-12 rounded-full">
+                      <Image
+                        src={
+                          user?.image ||
+                          "https://img.daisyui.com/images/profile/demo/gordon@192.webp"
+                        }
+                        alt="profile"
+                        width={50}
+                        height={50}
+                        unoptimized
+                      />
+                    </div>
                   </div>
-                </div>
-                {toggle ? (
-                  <ul
-                    tabIndex={-1}
-                    className="menu dropdown-content bg-base-200 rounded-box z-1 mt-4 w-50 p-2 shadow-sm absolute"
-                  >
+                </button>
+
+                {toggle && (
+                  <ul className="absolute right-0 mt-3 w-52 rounded-box bg-base-200 p-2 shadow-lg z-50">
                     <li>
                       <Link href={"/booking"}>My Bookings</Link>
                     </li>
+
                     <li>
                       <Link href={"/facilities/add"}>Add Facility</Link>
                     </li>
+
                     <li>
-                      <Link href={"/facilities/add"}>
+                      <Link href={"/facilities/manage"}>
                         Manage My Facilities
                       </Link>
                     </li>
+
                     <li>
-                      <Link
-                        href={"/login"}
-                        onClick={async () => await authClient.signOut()}
-                        className="bg-red-500 text-white"
+                      <button
+                        onClick={async () => {
+                          await authClient.signOut();
+                          setToggle(false);
+                        }}
+                        className="w-full text-left bg-red-500 text-white px-3 py-2 rounded-md"
                       >
                         Logout
-                      </Link>
+                      </button>
                     </li>
                   </ul>
-                ) : (
-                  ""
                 )}
               </div>
             ) : (

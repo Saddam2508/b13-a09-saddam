@@ -3,7 +3,7 @@ const Footer = () => {
     <footer className="bg-black mt-20 text-gray-400 px-6 md:px-16 py-16">
       <div className="max-w-7xl mx-auto">
         <div className="mb-12">
-          <h1 className="text-6xl md:text-7xl font-bold text-white">
+          <h1 className="text-4xl md:text-7xl font-bold text-white">
             PlayArena
           </h1>
           <p className="mt-4 max-w-xl">

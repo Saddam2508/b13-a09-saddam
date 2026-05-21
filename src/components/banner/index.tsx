@@ -66,10 +66,10 @@ const Banner = () => {
               slot in seconds with SportNest.
             </p> */}
             <Link
-              href={"/all-tiles"}
-              className="px-7 py-6 bg-amber-500 rounded-2xl text-white font-bold text-2xl"
+              href={"/facilities"}
+              className=" px-2 py-2 md:px-7 md:py-6 bg-amber-500 rounded-2xl text-white font-bold md:text-2xl"
             >
-              Explore Facilities
+              Explore
             </Link>
            </div>
           </div>

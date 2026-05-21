@@ -1,6 +1,8 @@
 import FacilitiesDetails from "@/components/facilities/FacilitiesDetails";
 import { getfacilitiesdData } from "@/helper/fetchData";
+import { auth } from "@/lib/auth";
 import { TFacility } from "@/types/facilityType";
+import { headers } from "next/headers";
 
 const FacilitiesDetailsPage = async ({
   params,
@@ -8,8 +10,10 @@ const FacilitiesDetailsPage = async ({
   params: Promise<{ id: string }>;
 }) => {
   const { id } = await params;
-  
- const fetchAllFacilities = await getfacilitiesdData();
+  const {token} = await auth.api.getToken({
+      headers: await headers()
+    })
+ const fetchAllFacilities = await getfacilitiesdData(token);
 
   if (!fetchAllFacilities.data) return <p>No data found</p>;
 
