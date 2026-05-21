@@ -15,7 +15,7 @@ export type BookingPayload = Omit<TFacility, BookingInfo> & {
   facilityId: string;
   user_email?: string;
   bookingDate: Date | null;
-  hours?: number;
+  hours?: string;
   total_price?: string;
   status: "pending" | "fulfilled";
 };

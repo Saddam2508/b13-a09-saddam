@@ -105,7 +105,7 @@ export const deletefacilitiesdData = async (id: string) => {
   return res.json();
 };
 
-export const createBookingdData = async (facility: BookingPayload) => {
+export const createBookingData = async (facility: BookingPayload) => {
   const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL;
 
   if (!baseUrl) throw new Error("Missing APP_URL");
