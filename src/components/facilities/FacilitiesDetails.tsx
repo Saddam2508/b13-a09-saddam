@@ -15,7 +15,7 @@ const FacilitiesDetails = ({ facility }: { facility: TFacility }) => {
           width={800}
         />
 
-        <div className="flex justify-between gap-10">
+        <div className="md:flex justify-between gap-10">
           <div className="p-2 space-y-6">
             <div className="flex items-center gap-1">
             </div>
