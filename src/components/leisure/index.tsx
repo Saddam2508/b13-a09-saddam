@@ -19,7 +19,7 @@ const LeisureActivities = async () => {
      <hr className="w-25 h-1 bg-amber-600 border-0 rounded" />
       </div>
     
-       <div className="flex gap-6">
+       <div className="grid grid-cols-6 gap-6">
         {allLeisure.map((leisure)=><LeisureCard key={leisure.id} leisure= {leisure} />)}
       </div>
     </div>
