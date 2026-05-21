@@ -14,22 +14,16 @@ import { TFacility } from "@/types/facilityType";
 import { BookingPayload } from "@/types/bookingType";
 
 import { createBookingData } from "@/helper/fetchData";
+import { redirect } from "next/navigation";
 
 const BookingCard = ({ facility }: { facility: TFacility }) => {
   const { data: session } = authClient.useSession();
-
   const user = session?.user;
-
   const { facilityName, pricePerHour, _id, availableTimeSlots } = facility;
-
   const [bookingDate, setBookingDate] = useState<DateValue | null>(null);
-
   const [startTime, setStartTime] = useState("");
-
   const [endTime, setEndTime] = useState("");
 
-  // Example:
-  // "23:33 - 23:45"
   const [availableStart, availableEnd] = availableTimeSlots.split(" - ");
 
   // HH:mm -> total minutes
@@ -67,7 +61,6 @@ const BookingCard = ({ facility }: { facility: TFacility }) => {
     if (!options.includes(end)) {
       options.push(end);
     }
-
     return options;
   };
 
@@ -83,45 +76,35 @@ const BookingCard = ({ facility }: { facility: TFacility }) => {
     if (!startTime || !endTime) {
       return "0h 0m";
     }
-
     const startMinutes = convertTimeToMinutes(startTime);
-
     const endMinutes = convertTimeToMinutes(endTime);
-
     const diffMinutes = endMinutes - startMinutes;
-
     if (diffMinutes <= 0) {
       return "0h 0m";
     }
 
     const hours = Math.floor(diffMinutes / 60);
-
     const minutes = diffMinutes % 60;
-
     return `${hours}h ${minutes}m`;
   })();
 
   const handleBooking = async () => {
+    if(!user) return redirect("/login")
+      
     if (!bookingDate) {
       toast.error("Please select booking date");
-
       return;
     }
 
     if (!startTime || !endTime) {
       toast.error("Please select start and end time");
-
       return;
     }
 
     const startMinutes = convertTimeToMinutes(startTime);
-
     const endMinutes = convertTimeToMinutes(endTime);
-
     const availableStartMinutes = convertTimeToMinutes(availableStart);
-
     const availableEndMinutes = convertTimeToMinutes(availableEnd);
-
     const isValidTime =
       startMinutes >= availableStartMinutes &&
       endMinutes <= availableEndMinutes &&
@@ -131,39 +114,26 @@ const BookingCard = ({ facility }: { facility: TFacility }) => {
       toast.error(
         `Please select time between ${availableStart} - ${availableEnd}`,
       );
-
       return;
     }
-
     try {
       const bookingData: BookingPayload = {
         facilityId: _id,
-
         facilityName: facilityName || "",
-
         user_email: user?.email || "",
-
         bookingDate: bookingDate.toDate("Asia/Dhaka"),
-
         availableTimeSlots,
-
         hours: duration,
-
         pricePerHour,
-
         status: "pending",
       };
-
       await createBookingData(bookingData);
-
       toast.success("You booked successfully!");
-
       // Reset form
       setStartTime("");
       setEndTime("");
     } catch (error) {
       console.log(error);
-
       toast.error("Booking failed");
     }
   };
