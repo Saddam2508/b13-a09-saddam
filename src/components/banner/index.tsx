@@ -10,23 +10,27 @@ import Link from "next/link";
 const bannersData = [
   {
     name: "banner1",
-    url: "https://www.kajariaceramics.com/storage/banner/desktop-banner.webp",
+    url: "https://i.ibb.co.com/Ndx92Zn8/01.png",
   },
   {
     name: "banner2",
-    url: "https://www.kajariaceramics.com/storage/banner/kajaria-living-desktop-2.webp",
+    url: "https://i.ibb.co.com/4RD6jQDR/02.png",
   },
   {
     name: "banner3",
-    url: "https://www.kajariaceramics.com/storage/banner/kajaria-kitchen-dektop.webp",
+    url: "https://i.ibb.co.com/QFdFyV7F/03.png",
   },
   {
     name: "banner4",
-    url: "https://www.kajariaceramics.com/storage/banner/kajaria-bathroom-desktop.webp",
+    url: "https://i.ibb.co.com/My2thyp9/04.png",
   },
   {
     name: "banner5",
-    url: "https://www.kajariaceramics.com/storage/banner/kajaria-outdoor-dektop1.webp",
+    url: "https://i.ibb.co.com/PGrrNbFg/05.png",
+  },
+  {
+    name: "banner6",
+    url: "https://i.ibb.co.com/zVWCN3RH/06.png",
   },
 ];
 const Banner = () => {
@@ -39,6 +43,7 @@ const Banner = () => {
         disableOnInteraction: false,
       }}
       loop={true}
+      className="mt-15"
     >
       {bannersData.map((b, idx) => (
         <SwiperSlide key={idx}>
@@ -51,7 +56,7 @@ const Banner = () => {
               className="w-full"
             />
            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 space-y-12">
-             <h2 className=" text-sm sm:text-6xl font-bold text-white w-full">
+             {/* <h2 className=" text-sm sm:text-6xl font-bold text-white w-full">
               Book Your Perfect Sports Arena Anytime, Anywhere
             </h2>
 
@@ -59,7 +64,7 @@ const Banner = () => {
               Discover top-rated football turfs, badminton courts, tennis
               arenas, and swimming facilities near you. Reserve your preferred
               slot in seconds with SportNest.
-            </p>
+            </p> */}
             <Link
               href={"/all-tiles"}
               className="px-7 py-6 bg-amber-500 rounded-2xl text-white font-bold text-2xl"

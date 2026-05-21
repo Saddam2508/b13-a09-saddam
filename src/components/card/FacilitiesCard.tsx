@@ -17,7 +17,7 @@ const FacilitiesCard = ({ facilities }: { facilities: TFacility }) => {
             loading="lazy"
             src={facilities.image}
           />
-          <Chip className="absolute top-2 right-2"> {facilities.facilityType} </Chip>
+          <Chip className="absolute top-2 right-2 text-gray-400"> {facilities.facilityType} </Chip>
           <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition duration-300 group-hover:opacity-100">
             <Chip className="flex items-center gap-2 text-white bg-black/70 backdrop-blur-md px-2 py-1 sm:px-4 sm:py-2">
               <FaHeart className="text-red-500" />
@@ -31,6 +31,7 @@ const FacilitiesCard = ({ facilities }: { facilities: TFacility }) => {
             <Button className= "hidden sm:flex">View Details</Button>
           </Link>
         </div>
+        <h2> {facilities.facilityName} </h2>
       </Card>
     </div>
   );

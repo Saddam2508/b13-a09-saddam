@@ -91,7 +91,7 @@ const Navbar = () => {
                 className="bg-transparent"
               />{" "}
               <span>
-                <span className="text-red-500">Mosaic</span>Hub
+                <span className="text-green-500">Play</span>Arena
               </span>
             </Link>
           </div>
