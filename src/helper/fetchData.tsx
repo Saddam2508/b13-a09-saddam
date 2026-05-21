@@ -64,17 +64,19 @@ type TFacilityResponse = {
   data: TFacility[];
 };
 
-export const getfacilitiesdData = async (token: string): Promise<TFacilityResponse> => {
+export const getfacilitiesdData = async (
+  token: string,
+): Promise<TFacilityResponse> => {
   const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL;
   if (!baseUrl) throw new Error("Missing APP_URL");
-if(!token) {
-  throw new Error("Token not found");
-}
+  if (!token) {
+    throw new Error("Token not found");
+  }
   const res = await fetch(`${baseUrl}/api/facilities`, {
     headers: {
-      authorization: `Bearer ${token}`
-    }
-  } );
+      authorization: `Bearer ${token}`,
+    },
+  });
   if (!res.ok) {
     throw new Error("Failed to get facility");
   }
