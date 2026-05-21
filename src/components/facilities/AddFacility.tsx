@@ -241,7 +241,7 @@ const AddFacility = () => {
                       <Table.Cell> {faci.pricePerHour} </Table.Cell>
                       <Table.Cell> {faci.capacity} </Table.Cell>
                       <Table.Cell> {faci.availableTimeSlots} </Table.Cell>
-                      <Table.Cell> {faci.description} </Table.Cell>
+                      <Table.Cell> {faci.description.substring(0, 100)}...... </Table.Cell>
                       <Table.Cell> {faci.email} </Table.Cell>
                       <Table.Cell>
                         <Button

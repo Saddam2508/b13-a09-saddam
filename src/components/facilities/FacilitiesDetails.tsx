@@ -7,7 +7,6 @@ const FacilitiesDetails = ({ facility }: { facility: TFacility }) => {
   return (
     <div>
       <div className="max-w-7xl mx-auto">
-        <div className="flex  items-center gap-3 justify-end mt-5 mb-3"></div>
         <Image
           className="w-full h-100 object-cover"
           alt={facility.facilityName}
@@ -17,26 +16,33 @@ const FacilitiesDetails = ({ facility }: { facility: TFacility }) => {
         />
 
         <div className="flex justify-between gap-10">
-          <div className="p-2">
+          <div className="p-2 space-y-6">
             <div className="flex items-center gap-1">
-              {/* <LuMapPin /> <span>{country}</span> */}
             </div>
             <div className="flex justify-between ">
-              <div>
-                <div>
-                  <h2 className="text-xl font-bold">{facility.facilityName}</h2>
-                </div>
-                <div className="flex gap-1 items-center">
-                  <FaRegCalendar /> {facility.availableTimeSlots}
-                </div>
+              <div className="space-y-2">
+                <h2 className="text-3xl font-bold">{facility.facilityName}</h2>
+                <h3 className="text-gray-400 font-bold"> Type: {facility.facilityType} </h3>
               </div>
             </div>
-
-            <h1 className="mt-10 text-2xl font-bold">Overview</h1>
-
-            <p className="max-w-6xl">{facility.description}</p>
+            <div>
+              <h1 className="text-2xl font-bold">Overview</h1>
+              <p className="max-w-6xl"> <span className="text-gray-400 font-bold text-sm">{facility.description}</span> </p>
+            </div>
+            <div>
+              <p className="text-2xl font-bold"> Available Time: <span className="text-gray-400 font-bold text-sm">{facility.availableTimeSlots}</span> </p>
+            </div>
+            <div>
+              <p className="text-2xl font-bold"> Location: <span className="text-gray-400 text-sm font-bold">{facility.location}</span> </p>
+            </div>
+            <div>
+              <p className="text-2xl font-bold"> Capacity: <span className="text-gray-400 text-sm font-bold">{facility.capacity}</span> </p>
+            </div>
+            <div>
+              <p className="text-2xl font-bold"> Price: $ <span className="text-gray-400 text-md font-bold">{facility.pricePerHour}</span> </p>
+            </div>
+           
           </div>
-
           <BookingCard facility={facility} />
         </div>
       </div>
