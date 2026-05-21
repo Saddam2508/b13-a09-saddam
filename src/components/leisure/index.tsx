@@ -1,7 +1,7 @@
 import { fetchLeisureData } from "@/helper/fetchData";
 import { TLeisure } from "@/types/leisureType";
 import LeisureCard from "../card/LeisureCard";
-import Marquee from "react-fast-marquee";
+
 
 
 const LeisureActivities = async () => {
@@ -18,11 +18,10 @@ const LeisureActivities = async () => {
         <h2 className="text-6xl font-bold">LEISURE CLUB ACTIVITIES</h2>
      <hr className="w-25 h-1 bg-amber-600 border-0 rounded" />
       </div>
-     <Marquee speed={90}>
+    
        <div className="flex gap-6">
         {allLeisure.map((leisure)=><LeisureCard key={leisure.id} leisure= {leisure} />)}
       </div>
-     </Marquee>
     </div>
   );
 };

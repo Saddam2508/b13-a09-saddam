@@ -4,7 +4,7 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto">
         <div className="mb-12">
           <h1 className="text-6xl md:text-7xl font-bold text-white">
-            Wanderlust
+            PlayArena
           </h1>
           <p className="mt-4 max-w-xl">
             Your gateway to extraordinary travel experiences around the world.
@@ -67,7 +67,7 @@ const Footer = () => {
 
         {/* Bottom Section */}
         <div className="border-t border-gray-800 mt-12 pt-6 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-sm">© 2026 Wanderlust. All rights reserved.</p>
+          <p className="text-sm">© 2026 PlayArena. All rights reserved.</p>
 
           <div className="flex gap-5 mt-4 md:mt-0 text-white text-lg">
             <span className="cursor-pointer">X</span>
