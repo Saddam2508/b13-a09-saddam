@@ -125,7 +125,7 @@ const Navbar = () => {
                       <Link href={"/facilities/add"}>Add Facility</Link>
                     </li>
                     <li>
-                      <Link href={"/facilities/manage"}>
+                      <Link href={"/facilities/add"}>
                         Manage My Facilities
                       </Link>
                     </li>
