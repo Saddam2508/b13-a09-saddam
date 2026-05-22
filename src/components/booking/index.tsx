@@ -4,24 +4,45 @@ import { BookingPayload } from "@/types/bookingType";
 import { Button, Table } from "@heroui/react";
 import { useEffect, useState } from "react";
 import { AlertDialog } from "@heroui/react";
+import { authClient } from "@/lib/auth-client";
 
 const MyBooking = () => {
   const [allBookingData, setAllBookingData] = useState<BookingPayload[]>([]);
 
+  const [token, setToken] = useState("");
+
   useEffect(() => {
+    const getToken = async () => {
+      const { data, error } = await authClient.token();
+
+      if (error) {
+        console.log(error);
+        return;
+      }
+
+      if (data) {
+        setToken(data.token);
+      }
+    };
+    getToken();
+  }, []);
+
+  useEffect(() => {
+    if (!token) return;
     const fetchData = async () => {
-      const result = await getBookingData();
+      console.log("sending token:", token);
+      const result = await getBookingData(token);
       if (result?.data) {
         setAllBookingData(result.data);
       }
     };
 
     fetchData();
-  }, []);
+  }, [token]);
 
   const handleDelete = async (id: string) => {
-    await deleteBookingData(id);
-    const result = await getBookingData();
+    await deleteBookingData(id, token);
+    const result = await getBookingData(token);
     if (result.data) {
       setAllBookingData(result.data);
     }

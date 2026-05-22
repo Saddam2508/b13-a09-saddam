@@ -41,14 +41,20 @@ export const fetchTrustedData = async () => {
   return trusted;
 };
 
-export const createFacilitiesdData = async (facility: TFacility) => {
+export const createFacilitiesdData = async (
+  token: string,
+  facility: TFacility,
+) => {
   const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL;
 
   if (!baseUrl) throw new Error("Missing APP_URL");
 
   const res = await fetch(`${baseUrl}/api/facilities`, {
     method: "POST",
-    headers: { "content-type": "application/json" },
+    headers: {
+      "content-type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
     body: JSON.stringify(facility),
   });
 
@@ -64,10 +70,15 @@ type TFacilityResponse = {
   data: TFacility[];
 };
 
-export const getfacilitiesdData = async (): Promise<TFacilityResponse> => {
+export const getfacilitiesdData = async (
+  search: string = "",
+  type: string = "",
+): Promise<TFacilityResponse> => {
   const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL;
   if (!baseUrl) throw new Error("Missing APP_URL");
-  const res = await fetch(`${baseUrl}/api/facilities`);
+  const res = await fetch(
+    `${baseUrl}/api/facilities?type=${type}&search=${search}`,
+  );
   if (!res.ok) {
     throw new Error("Failed to get facility");
   }
@@ -77,13 +88,17 @@ export const getfacilitiesdData = async (): Promise<TFacilityResponse> => {
 export const updatefacilitiesdData = async (
   id: string,
   facility: Partial<TFacility>,
+  token: string,
 ): Promise<TFacilityResponse> => {
   const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL;
   if (!baseUrl) throw new Error("Missing APP_URL");
 
   const res = await fetch(`${baseUrl}/api/facilities/${id}`, {
     method: "PUT",
-    headers: { "content-type": "application/json" },
+    headers: {
+      "content-type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
     body: JSON.stringify(facility),
   });
   if (!res.ok) {
@@ -92,11 +107,14 @@ export const updatefacilitiesdData = async (
   return res.json();
 };
 
-export const deletefacilitiesdData = async (id: string) => {
+export const deletefacilitiesdData = async (id: string, token: string) => {
   const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL;
   if (!baseUrl) throw new Error("Missing APP_URL");
   const res = await fetch(`${baseUrl}/api/facilities/${id}`, {
     method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
   if (!res.ok) {
     throw new Error("Failed to delete facility");
@@ -104,14 +122,20 @@ export const deletefacilitiesdData = async (id: string) => {
   return res.json();
 };
 
-export const createBookingData = async (facility: BookingPayload) => {
+export const createBookingData = async (
+  facility: BookingPayload,
+  token: string,
+) => {
   const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL;
 
   if (!baseUrl) throw new Error("Missing APP_URL");
 
   const res = await fetch(`${baseUrl}/api/booking`, {
     method: "POST",
-    headers: { "content-type": "application/json" },
+    headers: {
+      "content-type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
     body: JSON.stringify(facility),
   });
 
@@ -126,22 +150,31 @@ type TBookingResponse = {
   data: BookingPayload[];
 };
 
-export const getBookingData = async (): Promise<TBookingResponse> => {
+export const getBookingData = async (
+  token: string,
+): Promise<TBookingResponse> => {
   const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL;
   if (!baseUrl) throw new Error("Missing APP_URL");
-
-  const res = await fetch(`${baseUrl}/api/booking`);
+  console.log("token", token);
+  const res = await fetch(`${baseUrl}/api/booking`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
   if (!res.ok) {
     throw new Error("Failed to get booking");
   }
   return res.json();
 };
 
-export const deleteBookingData = async (id: string) => {
+export const deleteBookingData = async (id: string, token: string) => {
   const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL;
   if (!baseUrl) throw new Error("Missing APP_URL");
   const res = await fetch(`${baseUrl}/api/booking/${id}`, {
     method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
   if (!res.ok) {
     throw new Error("Failed to delete booking");

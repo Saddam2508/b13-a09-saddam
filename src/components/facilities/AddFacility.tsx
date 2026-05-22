@@ -12,6 +12,7 @@ import { Button, Input, Label, Modal, Surface, TextField } from "@heroui/react";
 import { Table } from "@heroui/react";
 import Image from "next/image";
 import { FormEvent, useEffect, useState } from "react";
+import { authClient } from "@/lib/auth-client";
 
 const AddFacility = () => {
   const [facilities, setFacilities] = useState<TFacility[]>([]);
@@ -19,6 +20,24 @@ const AddFacility = () => {
     null,
   );
   const [open, setOpen] = useState<boolean>(false);
+
+  const [token, setToken] = useState("");
+
+  useEffect(() => {
+    const getToken = async () => {
+      const { data, error } = await authClient.token();
+
+      if (error) {
+        console.log(error);
+        return;
+      }
+
+      if (data) {
+        setToken(data.token);
+      }
+    };
+    getToken();
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,10 +60,10 @@ const AddFacility = () => {
     };
 
     if (selectedFacility?._id) {
-      await updatefacilitiesdData(selectedFacility._id, facility);
+      await updatefacilitiesdData(selectedFacility._id, facility, token);
       setSelectedFacility(null);
     } else {
-      await createFacilitiesdData(facility as TFacility);
+      await createFacilitiesdData(token, facility as TFacility);
     }
     const result = await getfacilitiesdData();
     if (result.data) {
@@ -53,7 +72,7 @@ const AddFacility = () => {
   };
 
   const handleDelete = async (id: string) => {
-    await deletefacilitiesdData(id);
+    await deletefacilitiesdData(id, token);
     const result = await getfacilitiesdData();
     if (result.data) {
       setFacilities(result.data);

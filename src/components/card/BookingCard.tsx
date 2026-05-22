@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Button, Card, DateField, Label, TextField } from "@heroui/react";
 
@@ -25,6 +25,24 @@ const BookingCard = ({ facility }: { facility: TFacility }) => {
   const [endTime, setEndTime] = useState("");
 
   const [availableStart, availableEnd] = availableTimeSlots.split(" - ");
+
+  const [token, setToken] = useState("");
+
+  useEffect(() => {
+    const getToken = async () => {
+      const { data, error } = await authClient.token();
+
+      if (error) {
+        console.log(error);
+        return;
+      }
+
+      if (data) {
+        setToken(data.token);
+      }
+    };
+    getToken();
+  }, []);
 
   // HH:mm -> total minutes
   const convertTimeToMinutes = (time: string): number => {
@@ -89,8 +107,8 @@ const BookingCard = ({ facility }: { facility: TFacility }) => {
   })();
 
   const handleBooking = async () => {
-    if(!user) return redirect("/login")
-            
+    if (!user) return redirect("/login");
+
     if (!bookingDate) {
       toast.error("Please select booking date");
       return;
@@ -127,7 +145,7 @@ const BookingCard = ({ facility }: { facility: TFacility }) => {
         pricePerHour,
         status: "pending",
       };
-      await createBookingData(bookingData);
+      await createBookingData(bookingData, token);
       toast.success("You booked successfully!");
       // Reset form
       setStartTime("");
