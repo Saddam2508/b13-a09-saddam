@@ -23,6 +23,9 @@ const AddFacility = () => {
 
   const [token, setToken] = useState("");
 
+  const { data: session, error } = authClient.useSession();
+  const user = session?.user;
+
   useEffect(() => {
     const getToken = async () => {
       const { data, error } = await authClient.token();
@@ -100,7 +103,9 @@ const AddFacility = () => {
                   <Modal.Icon className="bg-accent-soft text-accent-soft-foreground">
                     <Envelope className="size-5" />
                   </Modal.Icon>
-                  <Modal.Heading>Add Facility</Modal.Heading>
+                  <Modal.Heading>
+                    {selectedFacility ? "Update" : " + Add facility"}
+                  </Modal.Heading>
                 </Modal.Header>
                 <Modal.Body className="p-6">
                   <Surface variant="default">
@@ -200,13 +205,25 @@ const AddFacility = () => {
                       </TextField>
                       <TextField
                         className="w-full "
-                        defaultValue={selectedFacility?.email}
+                        defaultValue={
+                          selectedFacility?.email
+                            ? selectedFacility.email
+                            : user?.email
+                              ? user.email
+                              : ""
+                        }
                       >
                         <Label>Owner Email</Label>
                         <Input placeholder="email" name="email" type="email" />
                       </TextField>
                       <Modal.Footer>
-                        <Button slot="close" variant="secondary">
+                        <Button
+                          slot="close"
+                          variant="secondary"
+                          onPress={() => {
+                            setSelectedFacility(null);
+                          }}
+                        >
                           Cancel
                         </Button>
                         <Button slot="close" type="submit">

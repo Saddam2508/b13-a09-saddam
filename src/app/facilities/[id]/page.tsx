@@ -1,7 +1,11 @@
 import FacilitiesDetails from "@/components/facilities/FacilitiesDetails";
 import { getfacilitiesdData } from "@/helper/fetchData";
 import { TFacility } from "@/types/facilityType";
+import { Metadata } from "next";
 
+export const metadata: Metadata = {
+  title: "Facility details page | SportNest",
+};
 const FacilitiesDetailsPage = async ({
   params,
 }: {

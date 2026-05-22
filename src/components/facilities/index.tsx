@@ -20,18 +20,18 @@ const AllFacility = async ({ sp }: Props) => {
   const allFacilities: TFacility[] = fetchAllFacilities.data;
 
   return (
-    <div className="mt-5 md:mt-25 max-w-11/12 mx-auto">
-      <div className="mt-3 mb-6 flex justify-center items-center gap-5 relative">
+    <div className="mt-20 md:mt-25 max-w-11/12 mx-auto">
+      <div className="mt-3 mb-6 sm:flex sm:justify-center sm:items-center sm:gap-5 sm:relative space-y-4 sm:space-y-0">
         <div className="mx-auto">
           {" "}
           <Search />{" "}
         </div>
-        <div className="right-0">
+        <div className="sm:right-0 text-center sm:text-right">
           {" "}
           <Filter />{" "}
         </div>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 gap-6 items-stretch">
         {allFacilities.map((facilities, i) => (
           <FacilitiesCard key={i} facilities={facilities} />
         ))}

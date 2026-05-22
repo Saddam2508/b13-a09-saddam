@@ -2,7 +2,7 @@ import Register from "@/components/register";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Register | category-A8-Apple",
+  title: "Register | SportNest",
 };
 
 const RegisterPage = () => {

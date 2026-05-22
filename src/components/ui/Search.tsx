@@ -19,13 +19,12 @@ const Search = () => {
   };
 
   return (
-    <div className="flex items-center">
+    <div className="flex items-center justify-center px-3">
       <SearchField name="search">
-        <Label>Search</Label>
         <SearchField.Group>
           <SearchField.SearchIcon />
           <SearchField.Input
-            className="w-[250px]"
+            className="max-w-[100px] sm:w-[250px]"
             placeholder="Search..."
             onChange={(e) => setSearchInput(e.target.value)}
           />
