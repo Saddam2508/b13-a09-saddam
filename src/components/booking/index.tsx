@@ -5,6 +5,7 @@ import { Button, Table } from "@heroui/react";
 import { useEffect, useState } from "react";
 import { AlertDialog } from "@heroui/react";
 import { authClient } from "@/lib/auth-client";
+import { toast } from "react-toastify";
 
 const MyBooking = () => {
   const [allBookingData, setAllBookingData] = useState<BookingPayload[]>([]);
@@ -43,6 +44,7 @@ const MyBooking = () => {
   const handleDelete = async (id: string) => {
     await deleteBookingData(id, token);
     const result = await getBookingData(token);
+    toast.success("Booking cancel successfully");
     if (result.data) {
       setAllBookingData(result.data);
     }

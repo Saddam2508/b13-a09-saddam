@@ -13,6 +13,7 @@ import { Table } from "@heroui/react";
 import Image from "next/image";
 import { FormEvent, useEffect, useState } from "react";
 import { authClient } from "@/lib/auth-client";
+import { toast } from "react-toastify";
 
 const AddFacility = () => {
   const [facilities, setFacilities] = useState<TFacility[]>([]);
@@ -64,9 +65,11 @@ const AddFacility = () => {
 
     if (selectedFacility?._id) {
       await updatefacilitiesdData(selectedFacility._id, facility, token);
+      toast.success("Facility updated successfully");
       setSelectedFacility(null);
     } else {
       await createFacilitiesdData(token, facility as TFacility);
+      toast.success("Facility created successfully");
     }
     const result = await getfacilitiesdData();
     if (result.data) {
@@ -77,6 +80,7 @@ const AddFacility = () => {
   const handleDelete = async (id: string) => {
     await deletefacilitiesdData(id, token);
     const result = await getfacilitiesdData();
+    toast.success("Facility delete successfully");
     if (result.data) {
       setFacilities(result.data);
     }
