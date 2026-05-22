@@ -28,7 +28,10 @@ const Filter = () => {
       >
         <option value="">Select a item</option>
         <option value="Football Turf">Football Turf</option>
-        <option value="Badminton Court">Badminton Court</option>
+        <option value="For Schools">Schools</option>
+        <option value="For Sporting Bodies">Sporting Bodies</option>
+        <option value="For Commercial Bodies">Commercial Bodies</option>
+        <option value="For Coach">Coach</option>
       </select>
     </div>
   );
