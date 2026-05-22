@@ -13,7 +13,7 @@ import { Table } from "@heroui/react";
 import Image from "next/image";
 import { FormEvent, useEffect, useState } from "react";
 
-const AddFacility = ({ token }: { token: string }) => {
+const AddFacility = () => {
   const [facilities, setFacilities] = useState<TFacility[]>([]);
   const [selectedFacility, setSelectedFacility] = useState<TFacility | null>(
     null,
@@ -22,7 +22,7 @@ const AddFacility = ({ token }: { token: string }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await getfacilitiesdData(token);
+      const result = await getfacilitiesdData();
       if (result?.data) {
         setFacilities(result.data);
       }
@@ -46,7 +46,7 @@ const AddFacility = ({ token }: { token: string }) => {
     } else {
       await createFacilitiesdData(facility as TFacility);
     }
-    const result = await getfacilitiesdData(token);
+    const result = await getfacilitiesdData();
     if (result.data) {
       setFacilities(result.data);
     }
@@ -54,7 +54,7 @@ const AddFacility = ({ token }: { token: string }) => {
 
   const handleDelete = async (id: string) => {
     await deletefacilitiesdData(id);
-    const result = await getfacilitiesdData(token);
+    const result = await getfacilitiesdData();
     if (result.data) {
       setFacilities(result.data);
     }

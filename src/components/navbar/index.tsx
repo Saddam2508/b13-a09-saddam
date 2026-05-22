@@ -91,7 +91,7 @@ const Navbar = () => {
                 className="bg-transparent"
               />{" "}
               <span>
-                <span className="text-green-500">Play</span>Arena
+                <span className="text-green-500">Sport</span>Nest
               </span>
             </Link>
           </div>
@@ -129,9 +129,7 @@ const Navbar = () => {
                     </li>
 
                     <li>
-                      <Link href={"/facilities/manage"}>
-                        Manage My Facilities
-                      </Link>
+                      <Link href={"/facilities/add"}>Manage My Facilities</Link>
                     </li>
 
                     <li>

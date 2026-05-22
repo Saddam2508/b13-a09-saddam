@@ -4,7 +4,7 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto">
         <div className="mb-12">
           <h1 className="text-4xl md:text-7xl font-bold text-white">
-            PlayArena
+            SportNest
           </h1>
           <p className="mt-4 max-w-xl">
             Your gateway to extraordinary travel experiences around the world.

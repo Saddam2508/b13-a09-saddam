@@ -1,8 +1,6 @@
 import FacilitiesDetails from "@/components/facilities/FacilitiesDetails";
 import { getfacilitiesdData } from "@/helper/fetchData";
-import { auth } from "@/lib/auth";
 import { TFacility } from "@/types/facilityType";
-import { headers } from "next/headers";
 
 const FacilitiesDetailsPage = async ({
   params,
@@ -10,22 +8,22 @@ const FacilitiesDetailsPage = async ({
   params: Promise<{ id: string }>;
 }) => {
   const { id } = await params;
-  const {token} = await auth.api.getToken({
-      headers: await headers()
-    })
- const fetchAllFacilities = await getfacilitiesdData(token);
+
+  const fetchAllFacilities = await getfacilitiesdData();
 
   if (!fetchAllFacilities.data) return <p>No data found</p>;
 
-const allFacilities: TFacility[]= fetchAllFacilities.data
+  const allFacilities: TFacility[] = fetchAllFacilities.data;
 
-const selectedFacility = allFacilities.find((facility)=>facility._id === id)
+  const selectedFacility = allFacilities.find(
+    (facility) => facility._id === id,
+  );
 
-if(!selectedFacility) return null
+  if (!selectedFacility) return null;
 
   return (
     <div className="mt-25 max-w-11/12 mx-auto">
-      <FacilitiesDetails facility = {selectedFacility}/>
+      <FacilitiesDetails facility={selectedFacility} />
     </div>
   );
 };
